@@ -14,7 +14,7 @@ index.html          the entire page
 assets/site.css     all styling
 assets/site.js      all behaviour
 assets/*.mp4|jpg    the hero video and photography
-CNAME               the custom domain for GitHub Pages
+vercel.json         hosting config: static output, cache headers
 ```
 
 ## Running it locally
@@ -39,5 +39,21 @@ progress from 0 to 1.
 
 ## Deploying
 
-GitHub Pages serves the `main` branch from the repository root. Push to `main` and
-the live site updates within a minute or two.
+Vercel serves this repository as a static site. There is no build step: `vercel.json`
+sets the output directory to the repository root, so what is committed is what ships.
+
+Push to `main` and Vercel builds and promotes to production within a minute or two.
+Any other branch gets its own preview URL.
+
+The domain records live at the registrar and already point at Vercel:
+
+```
+criterionpartners.net       A      216.198.79.1
+www.criterionpartners.net   CNAME  <project>.vercel-dns-017.com
+```
+
+The apex redirects to `www`, which is configured in the Vercel project's Domains tab.
+
+Note that `assets/site.css` and `assets/site.js` are served with `must-revalidate`
+because their filenames are not content-hashed. The images and the video are served
+`immutable` for a year, so if you replace one, give it a new filename.
