@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://criterionpartners.net/</loc></url>
-  <url><loc>https://criterionpartners.net/services</loc></url>
-  <url><loc>https://criterionpartners.net/peer-review</loc></url>
-  <url><loc>https://criterionpartners.net/articles</loc></url>
-  <url><loc>https://criterionpartners.net/about</loc></url>
-  <url><loc>https://criterionpartners.net/contact</loc></url>
-  <url><loc>https://criterionpartners.net/articles/the-ten-eb1a-criteria-in-plain-english</loc></url>
-  <url><loc>https://criterionpartners.net/articles/what-uscis-says-about-the-final-merits-step</loc></url>
-  <url><loc>https://criterionpartners.net/articles/eb1a-or-eb2-niw-which-fits-your-record</loc></url>
-  <url><loc>https://criterionpartners.net/articles/four-practices-that-put-a-petition-at-risk</loc></url>
-  <url><loc>https://criterionpartners.net/articles/what-counts-as-judging-the-work-of-others</loc></url>
-  <url><loc>https://criterionpartners.net/articles/eb1-filing-what-the-official-page-says-to-expect</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://criterionpartners.net/</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://criterionpartners.net/services.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://criterionpartners.net/peer-review.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.8</priority><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-14.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-12.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-20.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-18.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-22.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-23.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-08.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-07.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-11.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-10.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-13.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-15.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-16.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-17.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-19.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-21.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-24.jpg</image:loc></image:image><image:image><image:loc>https://criterionpartners.net/assets/proof/cert-25.jpg</image:loc></image:image></url>
+  <url><loc>https://criterionpartners.net/articles.html</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://criterionpartners.net/about.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority><image:image><image:loc>https://criterionpartners.net/assets/founder.jpg</image:loc></image:image></url>
+  <url><loc>https://criterionpartners.net/contact.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://criterionpartners.net/articles/the-ten-eb1a-criteria-in-plain-english.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://criterionpartners.net/articles/what-uscis-says-about-the-final-merits-step.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://criterionpartners.net/articles/eb1a-or-eb2-niw-which-fits-your-record.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://criterionpartners.net/articles/four-practices-that-put-a-petition-at-risk.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://criterionpartners.net/articles/what-counts-as-judging-the-work-of-others.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://criterionpartners.net/articles/eb1-filing-what-the-official-page-says-to-expect.html</loc><lastmod>2026-11-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

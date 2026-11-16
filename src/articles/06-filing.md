@@ -4,6 +4,7 @@ type: news
 date: 2026-11-16
 minutes: 4
 icon: calendar
+description: EB-1 filing explained from the official USCIS page: the three categories, who files Form I-140, and what happens for your family.
 summary: Who files, which form, and what happens for your family, straight from the source.
 ---
 The USCIS page for first preference (EB-1) covers three different groups. People often mix them up, so here is what the official page says about each.

@@ -4,6 +4,7 @@ type: education
 date: 2026-11-16
 minutes: 6
 icon: rings
+description: EB-1A vs EB-2 NIW: how the two self-petition green card routes differ, and how to tell which one fits your current record.
 summary: Two self-petition routes, two different standards. How to tell which is yours.
 ---
 Both EB-1A and EB-2 with a National Interest Waiver (NIW) let you petition for yourself. Neither needs an employer to sponsor you. That is where the similarity ends.

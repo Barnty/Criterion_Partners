@@ -4,6 +4,7 @@ type: news
 date: 2026-11-16
 minutes: 5
 icon: trend
+description: Paid journals, traded citations, bought awards and placed press: why they put an EB-1A petition at risk, and what to do instead.
 summary: Paid journals, traded citations, bought awards and placed press. Why they are being scrutinised, and how to stay clear.
 ---
 As interest in EB-1A has grown, so has a market selling shortcuts. News reports and immigration attorneys have described closer scrutiny of petitions built on purchased credentials, including approved cases being looked at again.

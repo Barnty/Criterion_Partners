@@ -4,6 +4,7 @@ type: education
 date: 2026-11-16
 minutes: 5
 icon: scales
+description: What counts as judging the work of others for EB-1A: peer review, panels and editorial boards, and the evidence that carries weight.
 summary: Peer review, panels and editorial boards. Which invitations carry weight and why.
 ---
 One of the ten EB-1A criteria is evidence that you have been asked to judge the work of others, either individually or on a panel. For researchers, this is often the most reachable criterion. It is also one of the easiest to get wrong.

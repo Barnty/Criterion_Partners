@@ -5,6 +5,7 @@ date: 2026-11-16
 minutes: 7
 icon: bars
 featured: yes
+description: The ten USCIS EB-1A criteria explained in plain English: what each one asks for, what evidence satisfies it, and why three is not enough.
 summary: What each criterion actually asks for, the evidence that satisfies it, and the common mistakes that make a ticked box worthless.
 ---
 The EB-1A category is for people with extraordinary ability in the sciences, arts, education, business or athletics. USCIS says you must show **sustained national or international acclaim**. There are two ways to do that: one major, internationally recognised award (think Pulitzer, Oscar or Olympic medal), or evidence under at least three of the ten criteria below.

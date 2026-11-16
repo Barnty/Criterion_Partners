@@ -4,6 +4,7 @@ type: news
 date: 2026-11-16
 minutes: 4
 icon: doc
+description: What the USCIS EB-1 page actually says about sustained acclaim and the final merits review, and how it changes the evidence you need.
 summary: The official wording most applicants skim past, and why it decides cases.
 ---
 Read the official USCIS page on EB-1 and one phrase appears before any list of criteria: you must demonstrate extraordinary ability "through sustained national or international acclaim."

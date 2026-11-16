@@ -58,18 +58,45 @@ function loadArticles() {
   });
 }
 
+/* ---------- structured data (schema.org JSON-LD) ---------- */
+const TODAY = new Date().toISOString().slice(0, 10);
+const ORG_ID = SITE + '/#organization', SITE_ID = SITE + '/#website', FOUNDER_ID = SITE + '/about.html#founder';
+const ORG = {
+  '@type': 'ProfessionalService', '@id': ORG_ID, name: 'Criterion Partners', url: SITE + '/',
+  logo: { '@type': 'ImageObject', url: SITE + '/assets/icon-512.png', width: 512, height: 512 },
+  image: SITE + '/assets/og.jpg',
+  description: 'EB-1A profile building consultancy for researchers and professionals: research paper development, journal placement, peer review appointments, memberships, awards and earned media.',
+  email: 'hello@criterionpartners.net', telephone: '+2348079851510', areaServed: 'Worldwide',
+  founder: { '@id': FOUNDER_ID },
+  knowsAbout: ['EB-1A visa', 'Extraordinary ability green card', 'EB-2 National Interest Waiver', 'Peer review', 'Scholarly publishing'],
+  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer service', telephone: '+2348079851510', email: 'hello@criterionpartners.net', availableLanguage: 'English' }]
+};
+const WEBSITE = { '@type': 'WebSite', '@id': SITE_ID, url: SITE + '/', name: 'Criterion Partners', publisher: { '@id': ORG_ID }, inLanguage: 'en' };
+const FOUNDER = { '@type': 'Person', '@id': FOUNDER_ID, name: 'Adeyeye Barnabas', jobTitle: 'Founder', worksFor: { '@id': ORG_ID }, image: SITE + '/assets/founder.jpg', url: SITE + '/about.html' };
+const crumbs = list => ({ '@type': 'BreadcrumbList', itemListElement: list.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c[0], item: SITE + '/' + c[1] })) });
+
 /* ---------- layout ---------- */
 function page(o) {
   const r = o.root || '';
   const nav = [['services.html', 'Services'], ['peer-review.html', 'Peer review proof'], ['articles.html', 'Articles'], ['about.html', 'About'], ['contact.html', 'Contact']];
-  const url = SITE + '/' + (o.file === 'index.html' ? '' : o.file.replace(/\.html$/, ''));
+  const url = SITE + '/' + (o.file === 'index.html' ? '' : o.file);
+  const graph = [WEBSITE, ORG].concat(o.schema || []);
+  const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n' +
-    '<title>' + esc(o.title) + '</title>\n<meta name="description" content="' + esc(o.desc) + '">\n<meta name="theme-color" content="#0E3B2A">\n' +
-    '<meta property="og:type" content="' + (o.article ? 'article' : 'website') + '">\n<meta property="og:site_name" content="Criterion Partners">\n' +
+    '<title>' + esc(o.title) + '</title>\n<meta name="description" content="' + esc(o.desc) + '">\n' +
+    '<meta name="robots" content="' + (o.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1') + '">\n<meta name="theme-color" content="#0E3B2A">\n' +
+    '<meta name="author" content="' + (o.article ? 'Adeyeye Barnabas' : 'Criterion Partners') + '">\n' +
+    '<meta property="og:type" content="' + (o.article ? 'article' : 'website') + '">\n<meta property="og:site_name" content="Criterion Partners">\n<meta property="og:locale" content="en_US">\n' +
     '<meta property="og:title" content="' + esc(o.title) + '">\n<meta property="og:description" content="' + esc(o.desc) + '">\n' +
-    '<meta property="og:url" content="' + url + '">\n<meta property="og:image" content="' + SITE + '/assets/og.jpg">\n<meta name="twitter:card" content="summary_large_image">\n' +
-    '<link rel="canonical" href="' + url + '">\n' +
-    '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 64 64\'%3E%3Crect width=\'64\' height=\'64\' rx=\'14\' fill=\'%230E3B2A\'/%3E%3Ctext x=\'32\' y=\'42\' font-family=\'Georgia,serif\' font-size=\'26\' fill=\'%23F5F8F4\' text-anchor=\'middle\'%3ECP%3C/text%3E%3C/svg%3E">\n' +
+    '<meta property="og:url" content="' + url + '">\n<meta property="og:image" content="' + SITE + '/assets/og.jpg">\n' +
+    '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="Criterion Partners: EB-1A profile building">\n' +
+    (o.article ? '<meta property="article:published_time" content="' + o.article.date + '">\n<meta property="article:modified_time" content="' + o.article.date + '">\n<meta property="article:section" content="' + (o.article.type === 'news' ? 'News' : 'Education') + '">\n' : '') +
+    '<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="' + esc(o.title) + '">\n<meta name="twitter:description" content="' + esc(o.desc) + '">\n<meta name="twitter:image" content="' + SITE + '/assets/og.jpg">\n' +
+    (o.noindex ? '' : '<link rel="canonical" href="' + url + '">\n') +
+    '<link rel="icon" href="' + r + 'favicon.ico" sizes="48x48">\n<link rel="icon" href="' + r + 'assets/icon.svg" type="image/svg+xml">\n' +
+    '<link rel="apple-touch-icon" href="' + r + 'assets/apple-touch-icon.png">\n<link rel="manifest" href="' + r + 'site.webmanifest">\n' +
+    '<link rel="alternate" type="application/rss+xml" title="Criterion Partners articles" href="' + SITE + '/feed.xml">\n' +
+    '<script type="application/ld+json">' + ld + '</script>\n' +
     '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
     '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Public+Sans:wght@400;500;600;700&display=swap">\n' +
     '<link rel="stylesheet" href="' + r + 'assets/site.css">\n</head>\n<body>\n<a class="skip" href="#main">Skip to content</a>\n' +
@@ -167,8 +194,9 @@ const write = (file, html) => { fs.mkdirSync(path.dirname(path.join(ROOT, file))
 
 // HOME
 write('index.html', page({
-  file: 'index.html', title: 'Criterion Partners | EB-1A profile building that holds up',
-  desc: 'EB-1A profile building for researchers and professionals. Real peer review appointments, real publications, real recognition. See client certificates.',
+  file: 'index.html', title: 'EB-1A Profile Building Consultancy | Criterion Partners',
+  desc: 'EB-1A profile building for researchers and professionals: genuine publications, peer review appointments and recognition that hold up to USCIS scrutiny.',
+  schema: [{ '@type': 'WebPage', '@id': SITE + '/#webpage', url: SITE + '/', name: 'EB-1A Profile Building Consultancy', isPartOf: { '@id': SITE_ID }, about: { '@id': ORG_ID } }],
   body:
     '<section class="hero"><div class="wrap hero-grid"><div>' +
     '<p class="eyebrow">EB-1A profile building</p><h1>Three ticks do not clear <em>the bar</em>.</h1>' +
@@ -210,8 +238,12 @@ const PLANS = [
   ['Extraordinary', '$8,000', 'End-to-end. We build the entire record.', ['All ten services included', 'Dedicated profile strategist', 'Full petition evidence package', '12-month unlimited support', 'Weekly strategy sessions', 'Earned media programme', 'Research visibility programme', 'Priority processing'], false]
 ];
 write('services.html', page({
-  file: 'services.html', current: 'services.html', title: 'Services | Criterion Partners',
-  desc: 'Ten EB-1A profile building services, each tied to a USCIS criterion: research papers, journal placement, peer review appointments, memberships, awards and earned media.',
+  file: 'services.html', current: 'services.html', title: 'EB-1A Profile Building Services and Pricing | Criterion Partners',
+  desc: 'Ten EB-1A profile building services, each tied to a USCIS criterion: research papers, journal placement, peer review, memberships, awards and earned media.',
+  schema: [crumbs([['Home', ''], ['Services', 'services.html']]),
+    { '@type': 'Service', name: 'EB-1A profile building', serviceType: 'Immigration evidence and profile building consultancy', provider: { '@id': ORG_ID }, areaServed: 'Worldwide',
+      hasOfferCatalog: { '@type': 'OfferCatalog', name: 'EB-1A profile building packages', itemListElement: PLANS.map(p => ({ '@type': 'Offer', name: p[0], description: p[2],
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: Number(p[1].replace(/\D/g, '')), priceCurrency: 'USD' } })) } }],
   body: head('Services', 'Ten services. Each one tied to a criterion.', 'Nothing here exists to look busy. Each service is chosen because it moves a specific EB-1A criterion, and we tell you which one.') +
     '<section class="sec" style="padding-top:10px"><div class="wrap"><h2 class="group">Core services</h2><div class="grid3">' + SERVICES.filter(s => s[4] === 'Core').map(svcCard).join('') + '</div>' +
     '<h2 class="group">Premium services</h2><div class="grid2">' + SERVICES.filter(s => s[4] === 'Premium').map(svcCard).join('') + '</div></div></section>' +
@@ -223,8 +255,11 @@ write('services.html', page({
 
 // PEER REVIEW PROOF
 write('peer-review.html', page({
-  file: 'peer-review.html', current: 'peer-review.html', title: 'Peer review proof | Criterion Partners',
-  desc: 'Eighteen reviewer certificates earned by Criterion Partners clients from IEEE Access, the IEEE Internet of Things Journal and Elsevier journals. Client names withheld.',
+  file: 'peer-review.html', current: 'peer-review.html', title: 'EB-1A Peer Review Certificates | Criterion Partners',
+  schema: [crumbs([['Home', ''], ['Peer review proof', 'peer-review.html']]),
+    { '@type': 'ImageGallery', name: 'Client peer review certificates', description: 'Reviewer certificates from IEEE and Elsevier journals earned by Criterion Partners clients. Names blurred.',
+      image: CERTS.map(c => ({ '@type': 'ImageObject', contentUrl: SITE + '/assets/proof/cert-' + c[0] + '.jpg', caption: c[3] + ', ' + c[2] })) }],
+  desc: '18 peer review certificates our clients earned from IEEE Access, the IEEE Internet of Things Journal and Elsevier journals. Names withheld.',
   body: head('Peer review proof', 'Eighteen certificates. Every one earned.', 'Judging the work of others is one of the ten EB-1A criteria. These are reviewer certificates our clients received after completing real reviews for established journals. Client names are blurred at their request.') +
     '<section class="sec" style="padding-top:6px"><div class="wrap">' +
     '<div class="strip-facts"><div><b>18</b><span>certificates shown</span></div><div><b>5</b><span>journals</span></div><div><b>2</b><span>publishers: IEEE and Elsevier</span></div></div>' +
@@ -244,8 +279,11 @@ write('peer-review.html', page({
 // ARTICLES HUB
 const feat = articles.find(a => a.featured) || articles[0];
 write('articles.html', page({
-  file: 'articles.html', current: 'articles.html', title: 'Articles: EB-1A news and education | Criterion Partners',
-  desc: 'Plain-English guides to the EB-1A criteria and news on what USCIS is doing, checked against official sources.',
+  file: 'articles.html', current: 'articles.html', title: 'EB-1A News and Guides | Criterion Partners',
+  desc: 'Plain-English guides to the EB-1A criteria, EB-2 NIW and peer review, plus news on what USCIS is doing, checked against official sources.',
+  schema: [crumbs([['Home', ''], ['Articles', 'articles.html']]),
+    { '@type': 'Blog', name: 'Criterion Partners: EB-1A news and education', url: SITE + '/articles.html', publisher: { '@id': ORG_ID },
+      blogPost: articles.map(a => ({ '@type': 'BlogPosting', headline: a.title, url: SITE + '/articles/' + a.slug + '.html', datePublished: a.date })) }],
   body: head('News and education', 'Understand EB-1A before you spend a dollar.', 'Plain-English guides to the criteria, and news on what USCIS is doing, checked against official sources.') +
     '<section style="padding-bottom:40px"><div class="wrap"><div class="toolbar"><div class="tabs" role="tablist" aria-label="Filter articles" id="postTabs">' +
     '<button class="tab" role="tab" aria-selected="true" data-f="all">All</button><button class="tab" role="tab" aria-selected="false" data-f="news">News</button><button class="tab" role="tab" aria-selected="false" data-f="education">Education</button></div>' +
@@ -260,8 +298,14 @@ write('articles.html', page({
 articles.forEach(a => {
   const others = articles.filter(x => x !== a).slice(0, 3);
   write('articles/' + a.slug + '.html', page({
-    root: '../', file: 'articles/' + a.slug + '.html', current: 'articles.html', article: true,
-    title: a.title + ' | Criterion Partners', desc: a.summary,
+    root: '../', file: 'articles/' + a.slug + '.html', current: 'articles.html', article: a,
+    title: a.title.length > 48 ? a.title : a.title + ' | Criterion Partners', desc: a.description || a.summary,
+    schema: [crumbs([['Home', ''], ['Articles', 'articles.html'], [a.title, 'articles/' + a.slug + '.html']]), FOUNDER,
+      { '@type': a.type === 'news' ? 'NewsArticle' : 'BlogPosting', headline: a.title, description: a.description || a.summary,
+        url: SITE + '/articles/' + a.slug + '.html', mainEntityOfPage: SITE + '/articles/' + a.slug + '.html',
+        datePublished: a.date, dateModified: a.date, image: [SITE + '/assets/og.jpg'], inLanguage: 'en',
+        articleSection: a.type === 'news' ? 'News' : 'Education', wordCount: a.html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length,
+        author: { '@id': FOUNDER_ID }, publisher: { '@id': ORG_ID } }],
     body: '<article class="article"><div class="wrap narrow"><a class="back" href="../articles.html">← All articles</a>' +
       '<div class="meta"><span class="chip ' + (a.type === 'news' ? 'p' : 's') + '">' + (a.type === 'news' ? 'News' : 'Education') + '</span><span>' + a.dateText + '</span><span>' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1><p class="lede">' + esc(a.summary) + '</p><div class="art-hero ' + (a.type === 'news' ? 'n' : 'e') + '">' + ART[a.icon] + '</div>' +
@@ -273,8 +317,10 @@ articles.forEach(a => {
 
 // ABOUT
 write('about.html', page({
-  file: 'about.html', current: 'about.html', title: 'About | Criterion Partners',
-  desc: 'Criterion Partners was founded by Adeyeye Barnabas to help researchers and professionals build EB-1A evidence that is real, earned and able to stand up to scrutiny.',
+  file: 'about.html', current: 'about.html', title: 'About Criterion Partners and Founder Adeyeye Barnabas',
+  schema: [crumbs([['Home', ''], ['About', 'about.html']]), FOUNDER,
+    { '@type': 'AboutPage', url: SITE + '/about.html', name: 'About Criterion Partners', about: { '@id': ORG_ID }, mainEntity: { '@id': FOUNDER_ID } }],
+  desc: 'Criterion Partners was founded by Adeyeye Barnabas to help researchers build EB-1A evidence that is real, earned and able to stand up to scrutiny.',
   body: head('About', 'We build records that hold up.', 'Criterion Partners is a profile building consultancy for EB-1A candidates. We are not a law firm. We do the work that makes a petition strong before an attorney files it.') +
     '<section class="sec" style="padding-top:10px"><div class="wrap founder"><figure><img src="assets/founder.jpg" alt="Adeyeye Barnabas, founder of Criterion Partners" width="720" height="720"></figure>' +
     '<div><p class="eyebrow">Founder</p><h2>Adeyeye Barnabas</h2><div class="prose">' +
@@ -290,7 +336,10 @@ write('about.html', page({
 
 // CONTACT
 write('contact.html', page({
-  file: 'contact.html', current: 'contact.html', title: 'Contact | Criterion Partners',
+  file: 'contact.html', current: 'contact.html', title: 'Contact Criterion Partners | Free EB-1A Profile Read',
+  schema: [crumbs([['Home', ''], ['Contact', 'contact.html']]),
+    { '@type': 'ContactPage', url: SITE + '/contact.html', name: 'Contact Criterion Partners', about: { '@id': ORG_ID } },
+    { '@type': 'FAQPage', mainEntity: FAQ.map(f => ({ '@type': 'Question', name: f[0], acceptedAnswer: { '@type': 'Answer', text: f[1] } })) }],
   desc: 'Chat with Criterion Partners on WhatsApp for an honest read on your EB-1A profile. +234 807 985 1510 or hello@criterionpartners.net.',
   body: head('Contact', 'Start with a conversation.', 'Tell us your field, your highest degree, and what you have so far: papers, reviews, awards, press. We will tell you honestly where you stand.') +
     '<section class="sec" style="padding-top:10px"><div class="wrap contact">' +
@@ -306,10 +355,33 @@ const css = fs.readFileSync(path.join(__dirname, 'base.css'), 'utf8').replace(/\
 fs.writeFileSync(path.join(ROOT, 'assets', 'site.css'), css);
 fs.copyFileSync(path.join(__dirname, 'site.js'), path.join(ROOT, 'assets', 'site.js'));
 
-// sitemap
-const urls = ['', 'services', 'peer-review', 'articles', 'about', 'contact'].concat(articles.map(a => 'articles/' + a.slug));
-fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-  urls.map(u => '  <url><loc>' + SITE + '/' + u + '</loc></url>').join('\n') + '\n</urlset>\n');
-fs.writeFileSync(path.join(ROOT, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: ' + SITE + '/sitemap.xml\n');
+// 404 page (GitHub Pages serves 404.html for any missing URL)
+write('404.html', page({
+  file: '404.html', noindex: true, title: 'Page not found | Criterion Partners', desc: 'This page does not exist.',
+  body: head('404', 'That page is not here.', 'It may have moved. These are the places most people are looking for:') +
+    '<section class="sec" style="padding-top:0"><div class="wrap"><div class="grid3">' +
+    [['index.html', 'Home', 'What we do and how we work.'], ['articles.html', 'Articles', 'EB-1A news and plain-English guides.'], ['contact.html', 'Contact', 'Message us on WhatsApp.']]
+      .map(x => '<a class="card" href="/' + (x[0] === 'index.html' ? '' : x[0]) + '"><h3>' + x[1] + '</h3><p>' + x[2] + '</p></a>').join('') + '</div></div></section>'
+}).replace(/(href|src)="(assets\/|favicon|site\.webmanifest|index\.html|services\.html|peer-review\.html|articles\.html|about\.html|contact\.html)/g, '$1="/$2'));
+
+// sitemap, with images for the proof gallery
+const pages = [['', '1.0', 'weekly'], ['services.html', '0.9', 'monthly'], ['peer-review.html', '0.8', 'monthly'], ['articles.html', '0.8', 'weekly'], ['about.html', '0.7', 'monthly'], ['contact.html', '0.7', 'monthly']];
+const sm = pages.map(p => '  <url><loc>' + SITE + '/' + p[0] + '</loc><lastmod>' + TODAY + '</lastmod><changefreq>' + p[2] + '</changefreq><priority>' + p[1] + '</priority>' +
+    (p[0] === 'peer-review.html' ? CERTS.map(c => '<image:image><image:loc>' + SITE + '/assets/proof/cert-' + c[0] + '.jpg</image:loc></image:image>').join('') : '') +
+    (p[0] === 'about.html' ? '<image:image><image:loc>' + SITE + '/assets/founder.jpg</image:loc></image:image>' : '') + '</url>')
+  .concat(articles.map(a => '  <url><loc>' + SITE + '/articles/' + a.slug + '.html</loc><lastmod>' + a.date + '</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>'));
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + sm.join('\n') + '\n</urlset>\n');
+fs.writeFileSync(path.join(ROOT, 'robots.txt'), 'User-agent: *\nAllow: /\nDisallow: /src/\nDisallow: /preview/\n\nSitemap: ' + SITE + '/sitemap.xml\n');
+
+// RSS feed for articles
+fs.writeFileSync(path.join(ROOT, 'feed.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>\n' +
+  '<title>Criterion Partners: EB-1A news and education</title><link>' + SITE + '/articles.html</link><description>Plain-English EB-1A guides and news.</description><language>en</language>\n' +
+  '<atom:link href="' + SITE + '/feed.xml" rel="self" type="application/rss+xml"/>\n' +
+  articles.slice().sort((x, y) => y.date.localeCompare(x.date)).map(a => '<item><title>' + esc(a.title) + '</title><link>' + SITE + '/articles/' + a.slug + '.html</link><guid>' + SITE + '/articles/' + a.slug + '.html</guid>' +
+    '<pubDate>' + new Date(a.date + 'T09:00:00Z').toUTCString() + '</pubDate><description>' + esc(a.summary) + '</description></item>').join('\n') + '\n</channel></rss>\n');
+
+// web app manifest
+fs.writeFileSync(path.join(ROOT, 'site.webmanifest'), JSON.stringify({ name: 'Criterion Partners', short_name: 'Criterion', start_url: '/', display: 'browser', background_color: '#F5F8F4', theme_color: '#0E3B2A',
+  icons: [{ src: '/assets/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png' }] }, null, 2) + '\n');
 
 console.log('done:', articles.length, 'articles');
