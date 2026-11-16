@@ -47,7 +47,7 @@ function md(src) {
 }
 function loadArticles() {
   const dir = path.join(__dirname, 'articles');
-  return fs.readdirSync(dir).filter(f => f.endsWith('.md')).sort().map(f => {
+  return fs.readdirSync(dir).filter(f => f.endsWith('.md')).sort().reverse().map(f => {
     const raw = fs.readFileSync(path.join(dir, f), 'utf8');
     const cut = raw.indexOf('\n---');
     const meta = {};
