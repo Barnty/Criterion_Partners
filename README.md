@@ -2,58 +2,45 @@
 
 The website for Criterion Partners, an EB-1A profile building consultancy.
 
-Live at **https://criterionpartners.net**
+Plain HTML, CSS and a little JavaScript. No framework and no build step on the host:
+the `.html` files in this repo are exactly what is served.
 
-## What this is
-
-Plain HTML, CSS and vanilla JavaScript. No framework, no build step, no npm install.
-The whole site is nine files. What is in the repo is exactly what is served.
+## Pages
 
 ```
-index.html          the entire page
-assets/site.css     all styling
-assets/site.js      all behaviour
-assets/*.mp4|jpg    the hero video and photography
-vercel.json         hosting config: static output, cache headers
+index.html            home
+services.html         the ten services and pricing
+peer-review.html      gallery of client reviewer certificates (names blurred)
+articles.html         news and education hub
+articles/*.html       one page per article
+about.html            the firm and its founder
+contact.html          WhatsApp, email, common questions
+assets/               stylesheet, script, images
+src/                  the source the pages are generated from
 ```
 
-## Running it locally
+## Changing the site
 
-The hero video is fetched with `fetch()`, which browsers block on `file://` URLs.
-Double-clicking `index.html` therefore shows the designed still-image hero, which is
-the intended fallback, not a bug. To see the scroll-driven video you need any local
-server:
+Do not edit the `.html` files by hand. They are generated. Edit the source in `src/`
+and run:
+
+```bash
+node src/build.js
+```
+
+- **Add an article:** copy any file in `src/articles/`, change the lines at the top
+  (slug, title, type `news` or `education`, date, minutes, summary) and the text, then
+  run the build. It appears on the Articles page automatically.
+- **Change wording on a page:** edit `src/build.js`.
+- **Change colours or layout:** `src/base.css` (colour tokens are at the top) and `src/extra.css`.
+
+## Preview locally
 
 ```bash
 npx http-server -p 8123
 ```
 
-Then open http://localhost:8123
+## Hosting
 
-## Editing it
-
-Copy lives in `index.html`. Colours are CSS custom properties at the top of
-`assets/site.css`, sampled from the brand logo. The hero caption timings are the
-`data-a` and `data-b` attributes on each `.band` element, expressed as scroll
-progress from 0 to 1.
-
-## Deploying
-
-Vercel serves this repository as a static site. There is no build step: `vercel.json`
-sets the output directory to the repository root, so what is committed is what ships.
-
-Push to `main` and Vercel builds and promotes to production within a minute or two.
-Any other branch gets its own preview URL.
-
-The domain records live at the registrar and already point at Vercel:
-
-```
-criterionpartners.net       A      216.198.79.1
-www.criterionpartners.net   CNAME  <project>.vercel-dns-017.com
-```
-
-The apex redirects to `www`, which is configured in the Vercel project's Domains tab.
-
-Note that `assets/site.css` and `assets/site.js` are served with `must-revalidate`
-because their filenames are not content-hashed. The images and the video are served
-`immutable` for a year, so if you replace one, give it a new filename.
+GitHub Pages serves the `main` branch from the repository root. Push to `main` and the
+live site updates within a minute or two.
