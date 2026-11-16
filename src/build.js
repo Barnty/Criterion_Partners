@@ -83,7 +83,8 @@ function page(o) {
   const graph = [WEBSITE, ORG].concat(o.schema || []);
   const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n' +
-    '<title>' + esc(o.title) + '</title>\n<meta name="description" content="' + esc(o.desc) + '">\n' +
+    '<script>if(location.protocol==="http:"&&/(^|\.)criterionpartners\.net$/.test(location.hostname))location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
+' + '<title>' + esc(o.title) + '</title>\n<meta name="description" content="' + esc(o.desc) + '">\n' +
     '<meta name="robots" content="' + (o.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1') + '">\n<meta name="theme-color" content="#0E3B2A">\n' +
     '<meta name="author" content="' + (o.article ? 'Adeyeye Barnabas' : 'Criterion Partners') + '">\n' +
     '<meta property="og:type" content="' + (o.article ? 'article' : 'website') + '">\n<meta property="og:site_name" content="Criterion Partners">\n<meta property="og:locale" content="en_US">\n' +
