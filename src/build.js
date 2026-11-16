@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const WA = 'https://wa.me/2348079851510';
+const LINKEDIN = 'https://www.linkedin.com/company/criterion-partners-eb1a/';
 const WA_TEXT = WA + '?text=' + encodeURIComponent("Hi Criterion Partners, I'd like an honest read on my EB-1A profile.");
 const SITE = 'https://criterionpartners.net';
 
@@ -67,7 +68,7 @@ const ORG = {
   image: SITE + '/assets/og.jpg',
   description: 'EB-1A profile building consultancy for researchers and professionals: research paper development, journal placement, peer review appointments, memberships, awards and earned media.',
   email: 'hello@criterionpartners.net', telephone: '+2348079851510', areaServed: 'Worldwide',
-  founder: { '@id': FOUNDER_ID },
+  founder: { '@id': FOUNDER_ID }, foundingDate: '2020', sameAs: [LINKEDIN],
   knowsAbout: ['EB-1A visa', 'Extraordinary ability green card', 'EB-2 National Interest Waiver', 'Peer review', 'Scholarly publishing'],
   contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer service', telephone: '+2348079851510', email: 'hello@criterionpartners.net', availableLanguage: 'English' }]
 };
@@ -111,7 +112,7 @@ function page(o) {
     '<footer class="foot">\n  <div class="wrap">\n    <div class="foot-grid">\n' +
     '      <div><a class="brand" href="' + r + 'index.html"><i>CP</i><span>Criterion <b>Partners</b></span></a><p>EB-1A profile building for researchers and professionals whose work is real.</p></div>\n' +
     '      <div><h4>Site</h4><ul>' + nav.map(n => '<li><a href="' + r + n[0] + '">' + n[1] + '</a></li>').join('') + '</ul></div>\n' +
-    '      <div><h4>Contact</h4><ul><li><a href="' + WA + '" target="_blank" rel="noopener">WhatsApp: +234 807 985 1510</a></li><li><a href="mailto:hello@criterionpartners.net">hello@criterionpartners.net</a></li></ul></div>\n' +
+    '      <div><h4>Contact</h4><ul><li><a href="' + WA + '" target="_blank" rel="noopener">WhatsApp: +234 807 985 1510</a></li><li><a href="mailto:hello@criterionpartners.net">hello@criterionpartners.net</a></li><li><a href="' + LINKEDIN + '" target="_blank" rel="noopener">LinkedIn</a></li></ul></div>\n' +
     '      <div><h4>Please note</h4><p>Criterion Partners is a profile building consultancy. We are not a law firm and nothing on this site is legal advice.</p></div>\n' +
     '    </div>\n    <p class="foot-base">&copy; 2026 Criterion Partners.</p>\n  </div>\n</footer>\n' +
     '<script src="' + r + 'assets/site.js"></script>\n' +
@@ -347,6 +348,7 @@ write('contact.html', page({
     '<section class="sec" style="padding-top:10px"><div class="wrap contact">' +
     '<a class="ccard main" href="' + WA_TEXT + '" target="_blank" rel="noopener"><span class="ico">' + waIcon + '</span><h2>WhatsApp</h2><p class="big">+234 807 985 1510</p><p>The fastest way to reach us. We usually reply the same day.</p><span class="btn btn-p">Open WhatsApp chat</span></a>' +
     '<a class="ccard" href="mailto:hello@criterionpartners.net"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><h2>Email</h2><p class="big">hello@criterionpartners.net</p><p>Best for longer messages and attachments. We answer within 24 hours.</p><span class="btn btn-g">Send an email</span></a>' +
+    '<a class="ccard" href="' + LINKEDIN + '" target="_blank" rel="noopener"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></span><h2>LinkedIn</h2><p class="big">Criterion Partners</p><p>Follow us for EB-1A news, guides and updates on our work.</p><span class="btn btn-g">Visit our page</span></a>' +
     '</div></section>' +
     '<section class="sec tint"><div class="wrap narrow"><p class="eyebrow">Straight answers</p><h2 style="margin:12px 0 24px">Questions people ask first.</h2>' + faq + '</div></section>'
 }));
